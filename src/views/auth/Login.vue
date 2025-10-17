@@ -9,7 +9,7 @@
         
         <div class="content">
           <div class="logo-container">
-            <img src="/MS_logo_1.webp" alt="Magic Smile" class="logo" />
+            <img src="/MS_figma_logo_blue.svg" alt="Magic Smile" class="logo" />
           </div>
           <h1 class="main-title">Система управления пациентами</h1>
           <p class="subtitle">Стоматологическая клиника "ДенталСмарт"</p>
@@ -184,14 +184,24 @@ html, body {
 }
 
 .logo-container {
-  margin-bottom: 90px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 4px;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
 }
 
 .logo {
-  width: 140px;
-  height: 140px;
+  width: 80%;
+  height: 80%;
   object-fit: contain;
 }
+
+
 
 .main-title {
   width: 728px;
