@@ -1,6 +1,5 @@
 <script setup>
 import { useRoute } from 'vue-router'
-
 const route = useRoute()
 </script>
 
@@ -23,8 +22,9 @@ const route = useRoute()
 
 .main-content {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 160px);
   margin: 0;
   padding: 0;
+  margin-top: 160px;
 }
 </style>
