@@ -5,6 +5,12 @@ import './style.css'
 import App from './App.vue'
 
 import Login from './views/auth/Login.vue'
+import PatientsList from './views/patients/PatientsList.vue'
+import PatientCard from './views/patients/PatientCard.vue'
+import PatientEdit from './views/patients/PatientEdit.vue'
+import AddPatient from './views/patients/AddPatient.vue'
+import EditPatient from './views/patients/EditPatient.vue'
+import DoctorProfile from './views/doctor/DoctorProfile.vue'
 
 const routes = [
   {
@@ -16,6 +22,44 @@ const routes = [
     name: 'Login',
     component: Login
   },
+  {
+    path: '/patients',
+    name: 'PatientsList',
+    component: PatientsList
+  },
+  {
+    path: '/archive',
+    name: 'Archive',
+    component: PatientsList
+  },
+  {
+    path: '/patients/:id',
+    name: 'PatientCard',
+    component: PatientCard,
+    props: true
+  },
+  {
+    path: '/patients/:id/edit',
+    name: 'PatientEdit',
+    component: PatientEdit,
+    props: true
+  },
+  {
+    path: '/patients/add',
+    name: 'AddPatient',
+    component: AddPatient
+  },
+  {
+    path: '/patients/:id/edit-new',
+    name: 'EditPatient',
+    component: EditPatient,
+    props: true
+  },
+  {
+    path: '/doctor/profile',
+    name: 'DoctorProfile',
+    component: DoctorProfile
+  }
 ]
 
 const router = createRouter({

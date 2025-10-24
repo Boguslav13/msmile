@@ -4,11 +4,11 @@
       <div class="header-left">
         <router-link to="/patients" class="logo">
           <div class="logo-container">
-            <img src="/MS_figma_logo_white.svg" alt="Magic Smile" class="logo-img" />
+            <img src="/logos/logo_white.svg" alt="Magic Smile" class="logo-img" />
           </div>
         </router-link>
         
-        <div class="tabs">
+        <div class="tabs" v-if="!isProfileRoute">
           <router-link to="/patients" class="tab" :class="{ active: $route.path === '/patients' }">
             Пациенты
           </router-link>
@@ -16,17 +16,25 @@
             Архив
           </router-link>
         </div>
+        <div class="profile-title" v-else>
+          Профиль
+        </div>
       </div>
 
-      <div class="doctor-profile" @click="goToProfile">
-        <div class="doctor-info">
-          <div class="doctor-name">
-            <div class="name-line">{{ doctorLastName }} {{ doctorFirstName }}</div>
-            <div class="name-line">{{ doctorMiddleName }}</div>
+      <div class="header-right">
+        <router-link v-if="isProfileRoute" to="/patients" class="patient-panel-btn">
+          Панель пациентов
+        </router-link>
+        <div class="doctor-profile" @click="goToProfile">
+          <div class="doctor-info">
+            <div class="doctor-name">
+              <div class="name-line">{{ doctorLastName }} {{ doctorFirstName }}</div>
+              <div class="name-line">{{ doctorMiddleName }}</div>
+            </div>
           </div>
-        </div>
-        <div class="doctor-avatar">
-          <img src="/profile_picture_default.svg" :alt="doctorName" />
+          <div class="doctor-avatar">
+            <img src="/default/profile_picture_default.svg" :alt="doctorName" />
+          </div>
         </div>
       </div>
     </div>
@@ -34,10 +42,11 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { computed } from 'vue'
 
 const router = useRouter()
+const route = useRoute()
 
 const doctorLastName = computed(() => 'Иванов')
 const doctorFirstName = computed(() => 'Иван')
@@ -47,6 +56,8 @@ const doctorName = computed(() => `${doctorLastName.value} ${doctorFirstName.val
 const goToProfile = () => {
   router.push('/doctor/profile')
 }
+
+const isProfileRoute = computed(() => route.path === '/doctor/profile')
 </script>
 
 <style scoped>
@@ -68,6 +79,7 @@ const goToProfile = () => {
   justify-content: space-between;
   align-items: center;
   padding: 0 40px;
+  position: relative;
 }
 
 .header-left {
@@ -94,7 +106,6 @@ const goToProfile = () => {
 }
 
 .tab {
-  font-family: 'Inter', sans-serif;
   font-weight: 500;
   font-size: 24px;
   line-height: 100%;
@@ -112,6 +123,28 @@ const goToProfile = () => {
 }
 
 .tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #FCC929;
+  border-radius: 2px 2px 0 0;
+}
+
+.profile-title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0.5%;
+  color: #FFFFFF;
+  padding: 8px 0;
+  margin-top: -10px;
+  position: relative;
+}
+
+.profile-title::after {
   content: '';
   position: absolute;
   bottom: -8px;
@@ -156,7 +189,6 @@ const goToProfile = () => {
 
 .doctor-name {
   color: #FFFFFF;
-  font-family: 'Inter', sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.2;
@@ -178,5 +210,29 @@ const goToProfile = () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.patient-panel-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 4px;
+  width: 173px;
+  height: 35px;
+  background: #3B7AB8;
+  border-radius: 44px;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
 }
 </style>

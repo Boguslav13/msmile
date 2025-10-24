@@ -9,7 +9,7 @@
         
         <div class="content">
           <div class="logo-container">
-            <img src="/MS_figma_logo_blue.svg" alt="Magic Smile" class="logo" />
+            <img src="/logos/logo_blue.svg" alt="Magic Smile" class="logo" />
           </div>
           <h1 class="main-title">Система управления пациентами</h1>
           <p class="subtitle">Стоматологическая клиника "ДенталСмарт"</p>
@@ -79,7 +79,6 @@ const handleLogin = async () => {
   error.value = ''
 
   try {
-    // Мок
     if (form.value.login === 'admin' && form.value.password === 'admin') {
       localStorage.setItem('doctor', JSON.stringify({
         id: 1,
@@ -121,7 +120,6 @@ html, body {
   height: 100vh;
   display: flex;
   background: #FFFFFF;
-  font-family: 'Inter', sans-serif;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -206,7 +204,6 @@ html, body {
 .main-title {
   width: 728px;
   height: 116px;
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
   font-size: 48px;
@@ -218,7 +215,6 @@ html, body {
 .subtitle {
   width: 100%;
   height: 27px;
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
@@ -248,7 +244,6 @@ html, body {
 .welcome-title {
   width: 278px;
   height: 34px;
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
   font-size: 28px;
@@ -260,9 +255,7 @@ html, body {
 .welcome-subtitle {
   width: 355px;
   height: 22px;
-  font-family: 'Inter';
   font-style: normal;
-  font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   color: #535D6C;
@@ -288,7 +281,6 @@ html, body {
   background: #FFFFFF;
   border: 1px solid #A9CFF5;
   border-radius: 44.5px;
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -315,7 +307,6 @@ html, body {
   background: #3B7AB8;
   border: none;
   border-radius: 44px;
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
