@@ -142,6 +142,8 @@ const emitData = () => {
 }
 
 onMounted(() => {
+  console.log('ParentDataForm mounted with props:', { parentData: props.parentData, isEditMode: props.isEditMode })
+  
   if (props.parentData && props.isEditMode) {
     formData.value = {
       lastName: props.parentData.lastName || '',
@@ -150,6 +152,8 @@ onMounted(() => {
       phone: props.parentData.phone || '',
       email: props.parentData.email || ''
     }
+    
+    console.log('Parent form data initialized:', formData.value)
   }
 })
 

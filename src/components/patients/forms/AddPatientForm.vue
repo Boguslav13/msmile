@@ -204,6 +204,8 @@ const validateForm = () => {
 }
 
 onMounted(() => {
+  console.log('AddPatientForm mounted with props:', { patientData: props.patientData, isEditMode: props.isEditMode })
+  
   if (props.patientData && props.isEditMode) {
     formData.value = {
       lastName: props.patientData.lastName || '',
@@ -214,12 +216,15 @@ onMounted(() => {
       notes: props.patientData.notes || ''
     }
     
+    console.log('Form data initialized:', formData.value)
+    
     if (props.patientData.photo) {
       if (typeof props.patientData.photo === 'string') {
         photoPreviewUrl.value = props.patientData.photo
       } else if (props.patientData.photo instanceof File) {
         photoPreviewUrl.value = URL.createObjectURL(props.patientData.photo)
       }
+      console.log('Photo preview URL set:', photoPreviewUrl.value)
     }
   }
 })

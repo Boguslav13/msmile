@@ -10,26 +10,33 @@
       <span class="breadcrumb-item">Редактирование пациента</span>
     </div>
 
-    <AddPatientForm 
-      ref="editPatientFormRef"
-      :patient-data="patientData"
-      :is-edit-mode="true"
-      @update="handleUpdate"
-      @cancel="handleCancel"
-      class="edit-patient-form"
-    />
+    <div v-if="!patientData || Object.keys(patientData).length === 0" class="loading">
+      Загрузка данных пациента...
+    </div>
 
-    <ParentDataForm 
-      ref="editParentDataFormRef"
-      :parent-data="parentData"
-      :is-edit-mode="true"
-      @data-changed="handleParentDataChange"
-    />
+    <template v-else>
+      <AddPatientForm 
+        ref="editPatientFormRef"
+        :patient-data="patientData"
+        :is-edit-mode="true"
+        @update="handleUpdate"
+        @cancel="handleCancel"
+        class="edit-patient-form"
+      />
+
+      <ParentDataForm 
+        v-if="parentData && Object.keys(parentData).length > 0"
+        ref="editParentDataFormRef"
+        :parent-data="parentData"
+        :is-edit-mode="true"
+        @data-changed="handleParentDataChange"
+      />
+    </template>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { usePatients } from '../../composables/usePatients'
 import Header from '../../components/layout/Header.vue'
@@ -43,8 +50,8 @@ const { getPatient, updatePatient } = usePatients()
 const editPatientFormRef = ref(null)
 const editParentDataFormRef = ref(null)
 
-const patientData = ref(null)
-const parentData = ref(null)
+const patientData = ref({})
+const parentData = ref({})
 
 const validateAllForms = () => {
   const isEditPatientValid = editPatientFormRef.value?.validateForm() || false
@@ -74,9 +81,20 @@ const handleParentDataChange = (parentData) => {
   console.log('Parent data changed:', parentData)
 }
 
+watch(patientData, (newData) => {
+  console.log('Patient data changed:', newData)
+}, { deep: true })
+
+watch(parentData, (newData) => {
+  console.log('Parent data changed:', newData)
+}, { deep: true })
+
 onMounted(() => {
   const patientId = route.params.id
+  console.log('Loading patient with ID:', patientId)
+  
   const patient = getPatient(patientId)
+  console.log('Found patient:', patient)
   
   if (patient) {
     patientData.value = {
@@ -89,6 +107,11 @@ onMounted(() => {
     }
     
     parentData.value = patient.parentData
+    
+    console.log('Patient data set:', patientData.value)
+    console.log('Parent data set:', parentData.value)
+  } else {
+    console.error('Patient not found with ID:', patientId)
   }
 })
 </script>
@@ -137,5 +160,14 @@ onMounted(() => {
   line-height: 17px;
   letter-spacing: 0.005em;
   color: #6B7897;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 18px;
+  color: #6B7280;
 }
 </style>
